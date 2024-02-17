@@ -29,7 +29,7 @@ function grandTotal(category){
         //set total cost in the cart container
         setInnerText('grand-total', getCost + 500);
     }
-    {
+    else{
         //set total cost in the cart container
         setInnerText('grand-total', getCost);
     }
@@ -54,10 +54,27 @@ for (let btn of allBtn) {
         p1.innerText = placeName;
         const p2 = document.createElement('p');
         p2.innerText = price;
+
+        // remain budget 
+        const budget = document.getElementById('budget');
+        const budgetText = budget.innerText;
+        const getBudget = parseInt(budgetText);
+        const remainBudget = getBudget - price;
+        if(remainBudget < 0){
+           return alert('Budget low, Earn more.');
+        }
+        setInnerText('budget', remainBudget);
+        
+        // marked the selected item
+        event.target.parentNode.parentNode.style.backgroundColor ='lightgray'
+        // set disable attribute
+    event.target.setAttribute('disabled', '');
         // step-3: set the element in cart container 
         li.appendChild(p1);
         li.appendChild(p2);
         selectedContainer.appendChild(li);
+
+        
         //count total cost 
 
         /*const getTotalCost = document.getElementById('total-cost');
@@ -71,10 +88,10 @@ for (let btn of allBtn) {
         setInnerText('total-cost', sum);
         // calculate the grand cost
         // step-1:same ways to get grand total
-        // const getCost = totalCost('grand-total', price)
+        const getCost = totalCost('grand-total', price)
         //set total cost in the cart container
-        // setInnerText('grand-total', getCost);
-        console.log(sum);
-        console.log(sum);
+        setInnerText('grand-total', getCost);
+        // console.log(sum);
+        // console.log(sum);
     })
 }
