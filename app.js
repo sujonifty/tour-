@@ -2,6 +2,39 @@
 function setInnerText(elementId, value) {
     document.getElementById(elementId).innerText = value;
 }
+// calculation the total cost 
+function totalCost(elementId, value) {
+    const getTotalCost = document.getElementById(elementId);
+    const totalCostText = getTotalCost.innerText;
+    const totalCost = parseInt(totalCostText);
+    const sum = totalCost + parseInt(value);
+    return sum;
+}
+// calculate the grand total
+function grandTotal(category){
+    // step-1:same ways to get grand total
+    const getTotalCost = document.getElementById('total-cost');
+        const totalCostText = getTotalCost.innerText;
+        const getCost = parseInt(totalCostText);
+
+    if(category === 'bus'){
+        //set total cost in the cart container
+        setInnerText('grand-total', getCost + 100);
+    }
+    else if(category === 'train'){
+        //set total cost in the cart container
+        setInnerText('grand-total', getCost - 200);
+    }
+    else if(category === 'flight'){
+        //set total cost in the cart container
+        setInnerText('grand-total', getCost + 500);
+    }
+    {
+        //set total cost in the cart container
+        setInnerText('grand-total', getCost);
+    }
+
+}
 const allBtn = document.getElementsByClassName('add-btn');
 let count = 0;
 for (let btn of allBtn) {
@@ -11,7 +44,7 @@ for (let btn of allBtn) {
         setInnerText('cart-count', count)
         // get place & price
         const placeName = event.target.parentNode.childNodes[1].innerText;
-        const price= event.target.parentNode.childNodes[3].childNodes[1].innerText;
+        const price = event.target.parentNode.childNodes[3].childNodes[1].innerText;
         // Store the value in cart container
         //step-1: get the container by id
         const selectedContainer = document.getElementById('selected-place-container');
@@ -26,12 +59,22 @@ for (let btn of allBtn) {
         li.appendChild(p2);
         selectedContainer.appendChild(li);
         //count total cost 
-        const getTotalCost = document.getElementById('total-cost');
+
+        /*const getTotalCost = document.getElementById('total-cost');
         const totalCostText = getTotalCost.innerText;
         const totalCost = parseInt(totalCostText);
-        const sum = totalCost + parseInt(price);
+        const sum = totalCost + parseInt(price);*/
+
+        //calculate total cost by function
+        const sum = totalCost('total-cost', price)
         //set total cost in the cart container
         setInnerText('total-cost', sum);
+        // calculate the grand cost
+        // step-1:same ways to get grand total
+        // const getCost = totalCost('grand-total', price)
+        //set total cost in the cart container
+        // setInnerText('grand-total', getCost);
+        console.log(sum);
         console.log(sum);
     })
 }
